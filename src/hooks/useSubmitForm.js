@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react'
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
-export function useSubmitForm ({ endpoint, action, formData, start, user = null }) {
+export function useSubmitForm (endpoint, action, formData, start) {
   const [responseData, setData] = useState(null)
   const [errorData, setError] = useState('')
   const [loadedData, setLoaded] = useState(false)
 
   useEffect(() => {
     let headerVar = ''
-    
     if (start) {
-      fetch(`${BASE_URL}${endpoint}`, {
-        mode: 'cors',
-        credentials: 'same-origin',
-        method: action,
+      debugger
+      fetch(BASE_URL+endpoint, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        mode: 'cors'
       })
         .then((res) => {
           if (!res.status) {
@@ -27,6 +26,7 @@ export function useSubmitForm ({ endpoint, action, formData, start, user = null 
         })
         .then(response => {
           // console.log(response)
+          debugger
           setData(response.results)
           setError(response.error)
           setLoaded(true)
@@ -39,5 +39,6 @@ export function useSubmitForm ({ endpoint, action, formData, start, user = null 
         })
     }
   }, [endpoint, start]) // Or [] if effect doesn't need props or state
+
   return { responseData, errorData, loadedData }
 }

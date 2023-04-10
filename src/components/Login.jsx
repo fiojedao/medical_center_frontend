@@ -20,7 +20,7 @@ export function Login () {
   const {saveUser} =useContext(UserContext)
   // Esquema de validación
   const loginSchema = yup.object({
-    email: yup.string()
+    useremail: yup.string()
       .required('El email es requerido')
       .email('Formato email'),
     password: yup.string()
@@ -30,7 +30,7 @@ export function Login () {
   useForm({
     // Valores iniciales
     defaultValues: {
-      email: '',
+      useremail: '',
       password: ''
     },
     // Asignación de validaciones
@@ -43,7 +43,7 @@ export function Login () {
   const [start, setStart] = useState(false)
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
-  const { responseData, errorData, loadedData } = useSubmitForm({ endpoint: 'user/login', action: 'POST', formData, start })
+  const { responseData, errorData, loadedData } = useSubmitForm('userauth/login','POST', formData, start)
   // Accion submit
   const onSubmit = (DataForm) => {
     try {
@@ -84,15 +84,15 @@ export function Login () {
             {/* ['filled','outlined','standard']. */}
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
-                name='email'
+                name='useremail'
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    id='email'
+                    id='useremail'
                     label='Email'
-                    error={Boolean(errors.email)}
-                    helperText={errors.email ? errors.email.message : ' '}
+                    error={Boolean(errors.useremail)}
+                    helperText={errors.useremail ? errors.useremail.message : ' '}
                   />
                 )}
               />
