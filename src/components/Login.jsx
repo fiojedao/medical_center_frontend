@@ -43,8 +43,9 @@ export function Login () {
   const [start, setStart] = useState(false)
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
-  const { responseData, errorData, loadedData } = useSubmitForm('userauth/login','POST', formData, start)
+  const { responseData, errorData, loadedData } = useSubmitForm({endpoint: '/userauth', action: 'POST', body: formData, start});
   // Accion submit
+
   const onSubmit = (DataForm) => {
     try {
       // Establecer valores del formulario
