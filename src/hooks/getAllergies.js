@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { requestOptionsBody, URIBase } from './headers'
+import { requestOptions, URIBase } from './headers'
 
-export function getAllergies ({endpoint, action, body, start}) {
+export function getAllergies ({endpoint, action, start}) {
   const [responseData, setData] = useState(null)
   const [errorData, setError] = useState('')
   const [loadedData, setLoaded] = useState(false)
 
   useEffect(() => {
     if (start) {
-      fetch(URIBase(endpoint), requestOptionsBody(action, body))
+      fetch(URIBase(endpoint), requestOptions(action))
       .then(async resp => {
         if (!resp.status) throw new Error('Error de red o servidor')
         return resp.json()

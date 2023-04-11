@@ -11,7 +11,7 @@ import { useCallApi } from '../hooks/useCallApi'
 
 export function ListMovies () {
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint:'movie' })
+  const { data, error, loaded } = useCallApi({ endpoint:'allergies' })
   return (
     <Grid container sx={{ p: 2 }} spacing={3}>
       {!loaded && <div>Cargando...</div>}
@@ -43,7 +43,7 @@ export function ListMovies () {
                   color: (theme) => theme.palette.common.white
                 }}
               >
-                <IconButton key={item.id} component={Link} to={`/movie/${item.id}`}   aria-label='Detalle' sx={{ ml: 'auto' }}>
+                <IconButton key={item.id} component={Link} to={`/allergies/${item.id}`}   aria-label='Detalle' sx={{ ml: 'auto' }}>
                   <Info />
                 </IconButton>
               </CardActions>

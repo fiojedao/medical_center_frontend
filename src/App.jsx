@@ -10,8 +10,10 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
-import TableMovies from './components/TableMovies'
-import { FormMovie } from './components/FormMovie'
+import TableAllergies from './components/TableAllergies'
+import TableDiseases from './components/TableDiseases'
+import {FormAllergies} from './components/FormAllergies'
+import {FormDiseases} from './components/FormDiseases'
 import { Unauthorized } from './components/Unauthorized'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
@@ -23,7 +25,7 @@ const router=createBrowserRouter([
     path:'/',
     element:<Home />
   },
-  {
+ /* {
     path:'/',
     element: <Auth allowedRoles={['Administrador']}/>,
     children:[
@@ -42,9 +44,41 @@ const router=createBrowserRouter([
         element: <ListMovies />
       },
     ]
+     {
+    path: 'movie/create/',
+    element: <FormAllergies/>
   },
+  },*/
   
   // Nuevas rutas
+  {
+    path:'/allergies-table',
+    element: <TableAllergies/>
+  },
+  {
+    path: '/allergies-create',
+    element: <FormAllergies />
+  },
+  {
+    path: '/allergies-update/:id',
+    element: <FormAllergies />
+  },
+  {
+    path:'/diseases-table',
+    element: <TableDiseases/>
+  },
+  {
+    path: '/diaseases-create',
+    element: <FormDiseases/>
+  },
+  {
+    path: '/diaseases-update/:id',
+    element: <FormDiseases />
+  },
+  {
+    path:'/movie/',
+    element: <ListMovies />
+  },
   {
     path:'/unauthorized',
     element: <Unauthorized />
@@ -62,10 +96,7 @@ const router=createBrowserRouter([
     element: <Signup />
   },
   
-  {
-    path: 'movie/create/',
-    element: <FormMovie/>
-  },
+ 
   {
     path:'/movie/:id',
     element: <DetailMovie />

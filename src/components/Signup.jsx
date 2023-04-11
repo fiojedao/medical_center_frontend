@@ -18,20 +18,41 @@ export function Signup () {
   const navigate = useNavigate()
   // Esquema de validación
   const loginSchema = yup.object({
-    email: yup.string()
-      .required('El email es requerido')
-      .email('Formato email'),
-    password: yup.string()
-      .required('El password es requerido')
+     id: yup.string()
+      .required('El numero de identificacion es requerido'),
+      name: yup.string()
+      .required('El nombre es requerido'),
+      lastname_one: yup.string()
+      .required('El primer apellido es requerido'),
+      lasnamet_two: yup.string()
+      .required('El segundo apellido es requerido'),
+      genre: yup.string()
+      .required('El genero es requerido'),
+      date_of_birth: yup.string()
+      .required('La fecha de nacimiento es requerida'),
+      contact: yup.string()
+      .required('El numero de contacto es requerido'),
+      emergency_contact: yup.string()
+      .required('El numero contacto en caso de emergencia es requerido'),
+      blood_type: yup.string()
+      .required('El tipo de sangre requerido'),
+
   })
   const { control, handleSubmit, setValue, formState: { errors } } =
   useForm({
     // Valores iniciales
     defaultValues: {
+      id: '',
       name: '',
-      email: '',
-      password: '',
-      rol_id: ''
+      lastname_one: '',
+      lasnamet_two: '',
+      genre: '',
+      address: '',
+      date_of_birth: '',
+      contact: '',
+      emergency_contact: '',
+      blood_type: '',
+   
     },
     // Asignación de validaciones
     resolver: yupResolver(loginSchema)
