@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import { Layout } from './components/Layout'
 import { ListMovies } from './components/ListMovies'
@@ -18,6 +16,8 @@ import { Logout } from './components/Logout'
 import { Signup } from './components/Signup'
 import UserProvider from './components/UserProvider'
 import { Auth } from './components/Auth'
+import AppointmentCalendar from './components/AppointmentCalendar';
+
 const router=createBrowserRouter([
   {
     path:'/',
@@ -69,6 +69,10 @@ const router=createBrowserRouter([
   {
     path:'/movie/:id',
     element: <DetailMovie />
+  },
+  {
+    path:'/big-calendar',
+    element: <AppointmentCalendar />
   }
 ])
 
