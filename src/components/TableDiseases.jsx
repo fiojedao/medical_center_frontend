@@ -210,6 +210,7 @@ export default function TableDiseases() {
   React.useEffect(() => {
     setStart(true);
     if (responseData != null) {
+    
     }
   }, [responseData]);
 

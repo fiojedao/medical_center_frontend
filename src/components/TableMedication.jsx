@@ -25,7 +25,7 @@ import { visuallyHidden } from "@mui/utils";
 import { useCallApi } from "../hooks/useCallApi";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { getAllergies } from "../hooks/getAllergies";
+import { getDiseases } from "../hooks/getDiseases";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,14 +67,20 @@ const headCells = [
     label: "Nombre",
   },
   {
-    id: "name_category",
+    id: "description",
     numeric: false,
     disablePadding: false,
-    label: "Categoria",
+    label: "Descriccion",
+  },
+  {
+    id: "dose",
+    numeric: false,
+    disablePadding: false,
+    label: "Dosis",
   },
 ];
 
-function TableAllergiesHead(props) {
+function TableDiseasesHead(props) {
   const {
     // onSelectAllClick,
     order,
@@ -92,7 +98,7 @@ function TableAllergiesHead(props) {
       <TableRow>
         <TableCell padding="checkbox">
           <Tooltip title="Nuevo">
-            <IconButton component={Link} to="/allergies-create">
+            <IconButton component={Link} to="/medication-create">
               <AddIcon />
             </IconButton>
           </Tooltip>
@@ -123,7 +129,7 @@ function TableAllergiesHead(props) {
   );
 }
 // PropTypes es un verificador de tipos
-TableAllergiesHead.propTypes = {
+TableDiseasesHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   /*  onSelectAllClick: PropTypes.func.isRequired, */
@@ -132,13 +138,13 @@ TableAllergiesHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function TableAllergiesToolbar(props) {
+function TableDiseasesToolbar(props) {
   const navigate = useNavigate();
   const { numSelected } = props;
   const { idSelected } = props;
   console.log(idSelected);
   const update = () => {
-    return navigate(`/allergies-update/${idSelected}`);
+    return navigate(`/medication-update/${idSelected}`);
   };
   return (
     <Toolbar
@@ -170,7 +176,7 @@ function TableAllergiesToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Allergias
+          Medicamentos
         </Typography>
       )}
 
@@ -193,16 +199,16 @@ function TableAllergiesToolbar(props) {
   );
 }
 
-TableAllergiesToolbar.propTypes = {
+TableDiseasesToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   idSelected: PropTypes.string.isRequired,
 };
 
-export default function TableAllergies() {
+export default function TableDiseases() {
   const [start, setStart] = React.useState(false);
 
-  const { responseData, errorData, loadedData } = getAllergies({
-    endpoint: "allergies",
+  const { responseData, errorData, loadedData } = getDiseases({
+    endpoint: "medication",
     action: "GET",
     start,
   });
@@ -210,6 +216,7 @@ export default function TableAllergies() {
   React.useEffect(() => {
     setStart(true);
     if (responseData != null) {
+     
     }
   }, [responseData]);
 
@@ -262,7 +269,7 @@ export default function TableAllergies() {
       {responseData && responseData.length > 0 && (
         <Box sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%", mb: 2 }}>
-            <TableAllergiesToolbar
+            <TableDiseasesToolbar
               numSelected={selected.length}
               idSelected={selected[0] || ''}
             />
@@ -272,7 +279,7 @@ export default function TableAllergies() {
                 aria-labelledby="tableTitle"
                 size={dense ? "small" : "medium"}
               >
-                <TableAllergiesHead
+                <TableDiseasesHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -283,17 +290,17 @@ export default function TableAllergies() {
                   {stableSort(responseData, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      const isItemSelected = isSelected(row.code_id);
+                      const isItemSelected = isSelected(row.code);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
                         <TableRow
                           hover
-                          onClick={(event) => handleClick(event, row.code_id)}
+                          onClick={(event) => handleClick(event, row.code)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
-                          key={row.code_id}
+                          key={row.code}
                           selected={isItemSelected}
                         >
                           <TableCell padding="checkbox">
@@ -313,7 +320,8 @@ export default function TableAllergies() {
                           >
                             {row.name}
                           </TableCell>
-                          <TableCell align="left">{row.category}</TableCell>
+                          <TableCell align="left">{row.description}</TableCell>
+                          <TableCell align="left">{row.dose}</TableCell>
                         </TableRow>
                       );
                     })}

@@ -10,8 +10,10 @@ import {
 } from 'react-router-dom'
 import TableAllergies from './components/TableAllergies'
 import TableDiseases from './components/TableDiseases'
+import TableMedication from './components/TableMedication'
 import {FormAllergies} from './components/FormAllergies'
 import {FormDiseases} from './components/FormDiseases'
+import {FormMedication} from './components/FormMedication'
 import { Unauthorized } from './components/Unauthorized'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
@@ -76,8 +78,16 @@ const router=createBrowserRouter([
     element: <FormDiseases />
   },
   {
-    path:'/movie/',
-    element: <ListMovies />
+    path: '/medication-table',
+    element: <TableMedication/>
+  },
+  {
+    path: '/medication-create',
+    element: <FormMedication/>
+  },
+  {
+    path: '/medication-update/:id',
+    element: <FormMedication />
   },
   {
     path:'/unauthorized',
@@ -95,8 +105,6 @@ const router=createBrowserRouter([
     path:'/user/create',
     element: <Signup />
   },
-  
- 
   {
     path:'/movie/:id',
     element: <DetailMovie />

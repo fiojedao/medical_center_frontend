@@ -4,7 +4,6 @@ import { useEffect, useState, useContext } from "react";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { FormHelperText, Select, InputLabel, MenuItem } from "@mui/material";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,7 +15,7 @@ import { useCallApi } from "../hooks/useCallApi";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export function FormAllergies() {
+export function FormMedication() {
   const navigate = useNavigate();
   const routeParams = useParams();
   // Id de la pelicula a actualizar
@@ -25,9 +24,11 @@ export function FormAllergies() {
   // Valores a precarga al actualizar
   const [values, setValues] = useState(null);
   // Esquema de validación
-  const allergieSchema = yup.object({
+  const medicationSchema = yup.object({
     name: yup.string().required("El nombre es requerido"),
-    id_category: yup.string().required("Debe escoger la categoría"),
+    description: yup.string().required("Debe escoger la categoría"),
+    dose: yup.string().required("El nombre es requerido"),
+    type: yup.string().required("Debe escoger la categoría"),
   });
   const {
     control,
@@ -38,12 +39,14 @@ export function FormAllergies() {
     // Valores iniciales
     defaultValues: {
       name: "",
-      id_category: "",
+      description: "",
+      dose: "",
+      type: "",
     },
     // valores a precargar
     values,
     // Asignación de validaciones
-    resolver: yupResolver(allergieSchema),
+    resolver: yupResolver(medicationSchema),
   });
 
   //  const isItemSelected = isSelected(row.code_id)
@@ -55,17 +58,15 @@ export function FormAllergies() {
   // Booleano para establecer si se envia la informacion al API
   const [start, setStart] = useState(false);
 
-  const categorias = useCallApi({
-    endpoint: "allergycategory",
-  });
+
 
   // Obtener la informacion de la pelicula a actualizar
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint: `allergies/${id}` });
+  const { data, error, loaded } = useCallApi({ endpoint: `medication/${id}` });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
   const { responseData, errorData, loadedData } = useSubmitForm({
-    endpoint: "allergies",
+    endpoint: "medication",
     action,
     formData,
     start,
@@ -77,11 +78,7 @@ export function FormAllergies() {
       console.log(DataForm);
       setData(DataForm);
       // Indicar que se puede realizar la solicitud al API
-
-      if (DataForm != null) {
-        setStart(true);
-      }
-     
+      setStart(true);
       // Establecer el tipo de métod HTTP
       if (esCrear) {
         setAction("POST");
@@ -106,66 +103,35 @@ export function FormAllergies() {
         position: "top-center",
       });
       // Si hay respuesta se creo o modifico lo redirecciona
-      return navigate("/allergies-table");
+      return navigate("/medication-table");
     }
     if (!esCrear && data) {
       // Si es modificar establece los valores a precargar en el formulario
       setValues(data[0]);
       console.log(data[0]);
     }
+  
   }, [responseData, data, esCrear, action]);
 
   React.useEffect(() => {
    
     if (responseData != null) {
-      setStart(true);
+        setStart(true);
     }
   }, [responseData]);
 
   return (
     <>
-      {categorias.data && (
+     
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={12}>
               <Typography variant="h5" gutterBottom>
-                {esCrear ? "Crear" : "Modificar"} Allergia
+                {esCrear ? "Crear" : "Modificar"} Medicamento
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
               {/* ['filled','outlined','standard']. */}
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
-                <Controller
-                  name="id_category"
-                  control={control}
-                  render={({ field }) => (
-                    <>
-                      <InputLabel id="id_category-label">Categoria</InputLabel>
-                      <Select
-                        {...field}
-                        labelId="id_category-label"
-                        id="id_category"
-                        label="Categoria"
-                        onChange={(e, newValue) => {
-                          console.log(newValue)
-                          setValue("id_category", newValue.props.value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                      >
-                        {categorias.data.map((row, index) => (
-                         
-                          <MenuItem key={index} value={row.category_id}>
-                            {row.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </>
-                  )}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4}>
               <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
                 <Controller
                   name="name"
@@ -177,6 +143,53 @@ export function FormAllergies() {
                       label="Nombre"
                       error={Boolean(errors.name)}
                       helperText={errors.name ? errors.name.message : " "}
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+                <Controller
+                  name="description"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id="description"
+                      label="Descripcion"
+                      error={Boolean(errors.description)}
+                      helperText={errors.description ? errors.description.message : " "}
+                    />
+                  )}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+                <Controller
+                  name="dose"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id="dose"
+                      label="Dosis"
+                      error={Boolean(errors.dose)}
+                      helperText={errors.dose ? errors.dose.message : " "}
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+                <Controller
+                  name="type"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id="type"
+                      label="Tpo"
+                      error={Boolean(errors.type)}
+                      helperText={errors.type ? errors.type.message : " "}
                     />
                   )}
                 />
@@ -195,7 +208,7 @@ export function FormAllergies() {
             </Grid>
           </Grid>
         </form>
-      )}
+      
     </>
   );
 }

@@ -117,8 +117,9 @@ export function FormDiseases() {
   }, [responseData, data, esCrear, action]);
 
   React.useEffect(() => {
-    setStart(true);
+    
     if (responseData != null) {
+      setStart(true);
     }
   }, [responseData]);
 
