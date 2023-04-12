@@ -5,12 +5,12 @@ import { useCallApi } from '../hooks/useCallApi';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 
-export function SelectDoctor ({onData, category}) {
-  const { data, error, loaded } = useCallApi({ endpoint: '/doctors', param: category });
-  const [doctor, setDoctor] = React.useState("0");
+export function SelectUser ({onData}) {
+  const { data, error, loaded } = useCallApi({ endpoint: '/user' });
+  const [user, setUser] = React.useState("0");
 
   function handleChange(event) {
-    setDoctor(event.target.value);
+    setUser(event.target.value);
     onData(event.target.value)
   }
 
@@ -19,22 +19,22 @@ export function SelectDoctor ({onData, category}) {
       {loaded && (
         <>
         <Box sx={{ minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-label">Médico</InputLabel>
+          <InputLabel id="user-select-label">Pacientes</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Médicos"
+            labelId="user-select-label"
+            id="user-select"
+            label="Pacientes"
             defaultValue={[]}
-            value={doctor}
+            value={user}
             onChange={handleChange}
           >
             
             <MenuItem value="0">
-              <em>Médicos</em>
+              <em>Pacientes</em>
             </MenuItem>
-            {data.map((doctors) => (
-                <MenuItem key={doctors.doctor_id} value={doctors.doctor_id}>
-                  {doctors.name}
+            {data.map((obj) => (
+                <MenuItem key={obj.id} value={obj.user_id}>
+                  {`${obj.name} ${obj.lastname_one} ${obj.lastname_two}`}
                 </MenuItem>
             ))}
           </Select>

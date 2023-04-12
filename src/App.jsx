@@ -20,7 +20,7 @@ import { Logout } from './components/Logout'
 import { Signup } from './components/Signup'
 import UserProvider from './components/UserProvider'
 import { Auth } from './components/Auth'
-import AppointmentCalendar from './components/AppointmentCalendar';
+import FormAppointment from './components/FormAppointment';
 
 const router=createBrowserRouter([
   {
@@ -111,7 +111,7 @@ const router=createBrowserRouter([
   },
   {
     path:'/big-calendar',
-    element: <AppointmentCalendar />
+    element: <FormAppointment />
   }
 ])
 

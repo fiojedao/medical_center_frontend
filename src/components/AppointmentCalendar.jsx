@@ -1,72 +1,63 @@
-import React, { useState } from 'react';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
-import { Calendar, dayjsLocalizer, momentLocalizer } from 'react-big-calendar'
-import dayjs from 'dayjs'
-const Evento = ({ event }) => {
+import React, { useState, useCallback, useMemo, useEffect } from "react";
+import moment from "moment";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useCallApi } from '../hooks/useCallApi';
+
+const AppointmentCalendar = ({onData}) => {
+  const localizer = momentLocalizer(moment);
+  const { data, error, loaded } = useCallApi({ endpoint: '/appointments' });
+
+  const [myEvents, setEvents] = useState([]);
+
+  const handleSelectSlot = useCallback(
+    ({ start, end }) => {
+      const title = window.prompt("Descripción");
+      if (title) {
+        setEvents((prev) => [...prev, { start, end, title }]);
+        onData({ start: moment(start).format("YYYY-MM-DD HH:mm:ss"), end: moment(end).format("YYYY-MM-DD HH:mm:ss"), title: title });
+      }
+    },
+    [setEvents]
+  );
+
+  const handleSelectEvent = useCallback(
+    (event) =>  window.alert(event.title),
+    []
+  );
+
+  const { defaultDate, scrollToTime } = useMemo(
+    () => ({
+      defaultDate: new Date(2015, 3, 12),
+      scrollToTime: new Date(1970, 1, 1, 6),
+    }),
+    []
+  );
+
+  useEffect(() => {
+    if (data != null) {
+        data.map(dt=> {
+          debugger
+          var datas = { start: new Date(dt.init_datetime), end: new Date(dt.end_datetime), title:`${dt.description}, ${dt.consulting_room}` };
+          setEvents((prev) => [...prev, { start: new Date(dt.init_datetime), end: new Date(dt.end_datetime), title:`${dt.description}, ${dt.consulting_room}` }]);
+        })
+    }
+  }, [data])
+
   return (
-    <div style={{ cursor: 'move' }}>
-      {event.title}
+    <div>
+        <Calendar
+          defaultDate={defaultDate}
+          defaultView={Views.WEEK}
+          events={myEvents}
+          localizer={localizer}
+          onSelectEvent={handleSelectEvent}
+          onSelectSlot={handleSelectSlot}
+          selectable
+          scrollToTime={scrollToTime}
+        />
     </div>
   );
 };
-const localizer = dayjsLocalizer(dayjs)
-
-const AppointmentCalendar = (props) => {
-  const localizer = momentLocalizer(moment);
-
-  const [eventos, setEventos] = useState([
-    {
-      title: 'Cita con el doctor',
-      start: new Date(2023, 3, 10, 10, 0),
-      end: new Date(2023, 3, 10, 11, 0),
-    },
-    {
-      title: 'Cita de seguimiento',
-      start: new Date(2023, 3, 12, 14, 0),
-      end: new Date(2023, 3, 12, 15, 0),
-    }
-  ]);
-  const handleSelectEvent = (event) => {
-    debugger
-    //setSelectedHour(event.start.getHours());
-  };
-  
-  const handleEventDrop = ({ event, start, end }) => {
-    debugger
-    const newEventos = eventos.map((e) => {
-      if (e.title === event.title) {
-        return {
-          ...e,
-          start,
-          end,
-        };
-      } else {
-        return e;
-      }
-    });
-
-    setEventos(newEventos);
-  };
-  return (
-    <div>
-    <Calendar
-      localizer={localizer}
-      events={eventos}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 500 }}
-      onSelectSlot={handleSelectEvent}
-      onSelectEvent={handleSelectEvent}
-      selectable
-      resizable
-      onEventDrop={handleEventDrop}
-      components={{
-        event: Evento,
-      }}
-    />
-  </div>
-  )
-}
 
 export default AppointmentCalendar;
