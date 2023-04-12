@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 export function FormAllergies() {
   const navigate = useNavigate();
   const routeParams = useParams();
-  // Id de la pelicula a actualizar
+  // Id de la allegia a actualizar
   const id = routeParams.id || null;
   const esCrear = !id;
   // Valores a precarga al actualizar
@@ -59,7 +59,7 @@ export function FormAllergies() {
     endpoint: "allergycategory",
   });
 
-  // Obtener la informacion de la pelicula a actualizar
+  // Obtener la informacion de la allegia a actualizar
   // eslint-disable-next-line no-unused-vars
   const { data, error, loaded } = useCallApi({ endpoint: `allergies/${id}` });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
@@ -75,12 +75,11 @@ export function FormAllergies() {
     try {
       // Establecer valores del formulario
       console.log(DataForm);
+     
       setData(DataForm);
       // Indicar que se puede realizar la solicitud al API
-
-      if (DataForm != null) {
-        setStart(true);
-      }
+       
+  
      
       // Establecer el tipo de métod HTTP
       if (esCrear) {
@@ -88,7 +87,9 @@ export function FormAllergies() {
       } else {
         setAction("PUT");
       }
+      setStart(true);
     } catch (e) {
+
       // handle your error
     }
   };
@@ -96,7 +97,7 @@ export function FormAllergies() {
   const onError = (errors, e) => console.log(errors, e);
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
-  // - si hay datos de la pelicula que se debe precargar
+  // - si hay datos de la allegia que se debe precargar
   // - cambia el booleano que indica si es Crear o Modificar
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
@@ -106,6 +107,7 @@ export function FormAllergies() {
         position: "top-center",
       });
       // Si hay respuesta se creo o modifico lo redirecciona
+      
       return navigate("/allergies-table");
     }
     if (!esCrear && data) {

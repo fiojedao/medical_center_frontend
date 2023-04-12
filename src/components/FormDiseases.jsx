@@ -24,7 +24,7 @@ import toast from "react-hot-toast";
 export function FormDiseases() {
   const navigate = useNavigate();
   const routeParams = useParams();
-  // Id de la pelicula a actualizar
+  // Id de la enfermedad a actualizar
   const id = routeParams.id || null;
   const esCrear = !id;
   // Valores a precarga al actualizar
@@ -64,7 +64,7 @@ export function FormDiseases() {
     endpoint: "diseasescategory",
   });
 
-  // Obtener la informacion de la pelicula a actualizar
+  // Obtener la informacion de la enfermedad a actualizar
   // eslint-disable-next-line no-unused-vars
   const { data, error, loaded } = useCallApi({ endpoint: `diseases/${id}` });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
@@ -97,7 +97,7 @@ export function FormDiseases() {
   const onError = (errors, e) => console.log(errors, e);
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
-  // - si hay datos de la pelicula que se debe precargar
+  // - si hay datos de la enfermedad que se debe precargar
   // - cambia el booleano que indica si es Crear o Modificar
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
@@ -113,6 +113,8 @@ export function FormDiseases() {
       // Si es modificar establece los valores a precargar en el formulario
       setValues(data[0]);
       console.log(data[0]);
+    }else{
+      
     }
   }, [responseData, data, esCrear, action]);
 
