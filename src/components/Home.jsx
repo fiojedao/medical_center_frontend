@@ -11,7 +11,7 @@ export function Home () {
         color='text.primary'
         gutterBottom
       >
-        App-Peliculas
+        App-Centro médico
       </Typography>
       <Typography variant='h5' align='center' color='text.secondary' paragraph>
         Consulta toda la información sobre películas de cine en nuestra base de datos.

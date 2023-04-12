@@ -55,7 +55,7 @@ export function Header () {
             variant='h6'
             noWrap
             component='a'
-            href='/'
+            href='/big-calendar'
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -66,7 +66,7 @@ export function Header () {
               textDecoration: 'none'
             }}
           >
-            Peliculas
+            Centro médico
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -99,8 +99,8 @@ export function Header () {
               }}
             >
               
-                <MenuItem component='a' href='/movie-table/'>
-                  <Typography textAlign='center'>Mantenimiento Peliculas</Typography>
+                <MenuItem component='a' href='/big-calendar'>
+                  <Typography textAlign='center'>Mantenimiento Centro médico</Typography>
                 </MenuItem>
             </Menu>
           </Box>
@@ -120,10 +120,10 @@ export function Header () {
               textDecoration: 'none'
             }}
           >
-            Peliculas
+            Centro médico
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button component='a' href='/movie/' sx={{ my: 2, color: 'white', display: 'block' }}>Lista Peliculas</Button>
+            <Button component='a' href='/allergies-table/' sx={{ my: 2, color: 'white', display: 'block' }}>Lista Alergias</Button>
           </Box>
           {/* Menu Mantenimientos */}
           <Box sx={{ flexGrow: 0 }}>
@@ -151,7 +151,7 @@ export function Header () {
               <MenuList>
                 {user && autorize({ allowedRoles: ['Administrador']}) && 
                   <MenuItem component='a' href='/movie-table/'>
-                    <Typography textAlign='center'>Mantenimiento Peliculas</Typography>
+                    <Typography textAlign='center'>Mantenimiento Centro médico</Typography>
                   </MenuItem>}
 
               </MenuList>
