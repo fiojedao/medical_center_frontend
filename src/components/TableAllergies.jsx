@@ -199,7 +199,7 @@ TableAllergiesToolbar.propTypes = {
 };
 
 export default function TableAllergies() {
-  const [start, setStart] = React.useState(false);
+  const [start, setStart] = React.useState(true);
 
   const { responseData, errorData, loadedData } = getAllergies({
     endpoint: "allergies",
@@ -208,8 +208,8 @@ export default function TableAllergies() {
   });
 
   React.useEffect(() => {
-    setStart(true);
     if (responseData != null) {
+      setStart(false);
     }
   }, [responseData]);
 

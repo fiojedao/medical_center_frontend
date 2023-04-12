@@ -102,12 +102,7 @@ export function FormAllergies() {
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
     if (responseData != null) {
-      toast.success(responseData, {
-        duration: 4000,
-        position: "top-center",
-      });
       // Si hay respuesta se creo o modifico lo redirecciona
-      
       return navigate("/allergies-table");
     }
     if (!esCrear && data) {
