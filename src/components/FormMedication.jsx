@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 export function FormMedication() {
   const navigate = useNavigate();
   const routeParams = useParams();
-  // Id de la pelicula a actualizar
+  // Id de la medicamento a actualizar
   const id = routeParams.id || null;
   const esCrear = !id;
   // Valores a precarga al actualizar
@@ -60,7 +60,7 @@ export function FormMedication() {
 
 
 
-  // Obtener la informacion de la pelicula a actualizar
+  // Obtener la informacion de la medicamento a actualizar
   // eslint-disable-next-line no-unused-vars
   const { data, error, loaded } = useCallApi({ endpoint: `medication/${id}` });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
@@ -93,15 +93,12 @@ export function FormMedication() {
   const onError = (errors, e) => console.log(errors, e);
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
-  // - si hay datos de la pelicula que se debe precargar
+  // - si hay datos de la medicamento que se debe precargar
   // - cambia el booleano que indica si es Crear o Modificar
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
     if (responseData != null) {
-      toast.success(responseData, {
-        duration: 4000,
-        position: "top-center",
-      });
+      
       // Si hay respuesta se creo o modifico lo redirecciona
       return navigate("/medication-table");
     }
