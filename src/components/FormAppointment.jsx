@@ -66,7 +66,7 @@ const FormAppointment = (props) => {
   const onSubmit = (DataForm) => {
     try {
       // Establecer valores del formulario
-      debugger;
+      ;
 
       setData({
         user_id:userId, 
@@ -81,7 +81,7 @@ const FormAppointment = (props) => {
       setStart(true);
     } catch (e) {
       // handle your error
-      debugger
+      
     }
   };
 

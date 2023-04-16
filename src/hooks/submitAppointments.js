@@ -7,7 +7,6 @@ export function submitAppointments ({endpoint, action, body, start}) {
   const [loadedData, setLoaded] = useState(false);
 
   useEffect(() => {
-    debugger
     if (start) {
       fetch(URIBase(endpoint), requestOptionsBody(action, body))
       .then(async resp => {
@@ -15,7 +14,6 @@ export function submitAppointments ({endpoint, action, body, start}) {
         return resp.json()
       })
       .then(response => {
-        debugger
         setRespnse(response.results)
         setError(response.error)
         setLoaded(true)

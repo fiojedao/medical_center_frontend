@@ -21,6 +21,6 @@ export function useSubmitForm ({endpoint, action, formData, start}) {
       })
       .catch(error => {throw new Error(`Error de servidor: ${JSON.stringify(error)}`)});
     }
-  }, [endpoint, action, start, formData]);
+  }, [endpoint, action, formData, start]);
   return { responseData, errorData, loadedData }
 }

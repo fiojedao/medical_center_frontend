@@ -37,7 +37,7 @@ const AppointmentCalendar = ({onData}) => {
   useEffect(() => {
     if (data != null) {
         data.map(dt=> {
-          debugger
+          
           var datas = { start: new Date(dt.init_datetime), end: new Date(dt.end_datetime), title:`${dt.description}, ${dt.consulting_room}` };
           setEvents((prev) => [...prev, { start: new Date(dt.init_datetime), end: new Date(dt.end_datetime), title:`${dt.description}, ${dt.consulting_room}` }]);
         })
