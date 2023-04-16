@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 
 export function SelectUser ({onData}) {
-  const { data, error, loaded } = useCallApi({ endpoint: '/user' });
+  const { data, error, loaded } = useCallApi({ endpoint: 'user' });
   const [user, setUser] = React.useState("0");
 
   function handleChange(event) {

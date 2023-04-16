@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 
 export function SelectDoctor ({onData, category}) {
-  const { data, error, loaded } = useCallApi({ endpoint: '/doctors', param: category });
+  const { data, error, loaded } = useCallApi({ endpoint: 'doctors', param: category });
   const [doctor, setDoctor] = React.useState("0");
 
   function handleChange(event) {
