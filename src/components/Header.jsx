@@ -199,12 +199,13 @@ export function Header () {
               )}
               {userData && ( 
                 <MenuList>
-                  <MenuItem>
-                    <Typography variant='subtitle1' gutterBottom>
-                      {userData?.email}
-                      {/* var? resultado: resultado3 */}
-                    </Typography>
-                  </MenuItem>
+                  {
+                    userData?.email && <MenuItem>
+                      <Typography variant='subtitle1' gutterBottom>
+                        {userData?.email}
+                      </Typography>
+                    </MenuItem>
+                  }
                   <MenuItem color='secondary' component='a' href='/user/logout'>
                     <Typography textAlign='center'>Logout</Typography>
                   </MenuItem>

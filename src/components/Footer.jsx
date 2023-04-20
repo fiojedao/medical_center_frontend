@@ -18,7 +18,7 @@ export function Footer () {
         <Grid container direction='column' alignItems='center'>
           <Grid item xs={12}>
             <Typography color='black' variant='subtitle1'>
-              ISW-613
+              Centro médico
             </Typography>
           </Grid>
           <Grid item xs={12}>
