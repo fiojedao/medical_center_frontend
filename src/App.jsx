@@ -11,10 +11,12 @@ import {
 import TableAllergies from './components/TableAllergies'
 import TableDiseases from './components/TableDiseases'
 import TableMedication from './components/TableMedication'
+import TableDoctors from './components/TableDoctors'
 import {FormAllergies} from './components/FormAllergies'
 import {FormDiseases} from './components/FormDiseases'
 import {FormMedication} from './components/FormMedication'
 import { Unauthorized } from './components/Unauthorized'
+import { FormDoctor } from './components/FormDoctors'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
 import { Signup } from './components/Signup'
@@ -88,7 +90,19 @@ const router=createBrowserRouter([
   {
     path:'/user/create',
     element: <Signup />
-  }
+  },
+  {
+    path:'/doctor/create',
+    element: <FormDoctor />
+  },
+  {
+    path: '/doctors-table',
+    element: <TableDoctors/>
+  },
+  {
+    path: '/doctor-update/:id',
+    element: <FormDoctor />
+  },
 ])
 
 export function App(){
