@@ -1,10 +1,14 @@
-import { indigo, blue } from '@mui/material/colors'
+import { teal, yellow, pink } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 // https://mui.com/material-ui/customization/theming/
-export const appTheme = createTheme({
+export const AppTheme = createTheme({
   palette: {
     mode: 'light',
-    primary: indigo,
-    secondary: blue
+    primary: {
+      main: teal[700]
+    },
+    secondary: {
+      main: pink[400],
+    },
   }
 })

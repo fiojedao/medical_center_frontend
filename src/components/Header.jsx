@@ -11,13 +11,16 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import MenuList from '@mui/material/MenuList'
-import MovieIcon from '@mui/icons-material/LocalMovies'
+import Local from '@mui/icons-material/LocalHospitalSharp';
 import PersonIcon from '@mui/icons-material/Person'
 import TableViewIcon from '@mui/icons-material/TableView'
 import { React, useState, useEffect, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
+import { red } from '@mui/material/colors';
+
 
 export function Header () {
+  const color = red[200];
   const {user, decodeToken, autorize } =useContext(UserContext)
   const [userData, setUserData]=useState(decodeToken())
   const [anchorElNav, setAnchorElNav] = useState(null)
@@ -48,9 +51,9 @@ export function Header () {
   }
   return (
     <AppBar position='static'>
-      <Container maxWidth='xl'>
+      <Container maxWidth='xl' >
         <Toolbar disableGutters>
-          <MovieIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Local sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, }} />
           <Typography
             variant='h6'
             noWrap
@@ -63,7 +66,7 @@ export function Header () {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none'
+              textDecoration: 'none',  
             }}
           >
             Centro médico
