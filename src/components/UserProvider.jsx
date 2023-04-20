@@ -29,8 +29,8 @@ export default function UserProvider (props) {
   const autorize = ({ allowedRoles }) => {
     const userData = decodeToken()
     if (userData && allowedRoles) {
-      console.log(userData && userData.rol && allowedRoles.includes(userData.rol))
-      return userData && userData.rol && allowedRoles.includes(userData.rol)
+      console.log(userData && userData.rol && allowedRoles.includes(userData.rol_type))
+      return userData && userData.rol && allowedRoles.includes(userData.rol_type)
     }
     return false
   }

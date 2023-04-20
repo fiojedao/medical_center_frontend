@@ -27,67 +27,51 @@ const router=createBrowserRouter([
     path:'/',
     element:<Home />
   },
- /* {
-    path:'/',
-    element: <Auth allowedRoles={['Administrador']}/>,
-    children:[
+  {
+    path: '/',
+    element: <Auth allowedRoles={['Staff', 'Patient']} />,
+    children: [
       {
-        path:'/movie-table',
-        element: <TableMovies />
+        path:'/allergies-table',
+        element: <TableAllergies/>
       },
-    ]
-  },
-  {
-    path:'/',
-    element: <Auth allowedRoles={['Administrador','Usuario']}/>,
-    children:[
       {
-        path:'/movie/',
-        element: <ListMovies />
+        path: '/allergies-create',
+        element: <FormAllergies />
       },
+      {
+        path: '/allergies-update/:id',
+        element: <FormAllergies />
+      },
+      {
+        path:'/diseases-table',
+        element: <TableDiseases/>
+      },
+      {
+        path: '/diaseases-create',
+        element: <FormDiseases/>
+      },
+      {
+        path: '/diaseases-update/:id',
+        element: <FormDiseases />
+      },
+      {
+        path: '/medication-table',
+        element: <TableMedication/>
+      },
+      {
+        path: '/medication-create',
+        element: <FormMedication/>
+      },
+      {
+        path: '/medication-update/:id',
+        element: <FormMedication />
+      },
+      {
+        path:'/big-calendar',
+        element: <FormAppointment />
+      }
     ]
-     {
-    path: 'movie/create/',
-    element: <FormAllergies/>
-  },
-  },*/
-  
-  // Nuevas rutas
-  {
-    path:'/allergies-table',
-    element: <TableAllergies/>
-  },
-  {
-    path: '/allergies-create',
-    element: <FormAllergies />
-  },
-  {
-    path: '/allergies-update/:id',
-    element: <FormAllergies />
-  },
-  {
-    path:'/diseases-table',
-    element: <TableDiseases/>
-  },
-  {
-    path: '/diaseases-create',
-    element: <FormDiseases/>
-  },
-  {
-    path: '/diaseases-update/:id',
-    element: <FormDiseases />
-  },
-  {
-    path: '/medication-table',
-    element: <TableMedication/>
-  },
-  {
-    path: '/medication-create',
-    element: <FormMedication/>
-  },
-  {
-    path: '/medication-update/:id',
-    element: <FormMedication />
   },
   {
     path:'/unauthorized',
@@ -104,14 +88,6 @@ const router=createBrowserRouter([
   {
     path:'/user/create',
     element: <Signup />
-  },
-  {
-    path:'/movie/:id',
-    element: <DetailMovie />
-  },
-  {
-    path:'/big-calendar',
-    element: <FormAppointment />
   }
 ])
 

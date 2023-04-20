@@ -149,11 +149,15 @@ export function Header () {
               onClose={handleCloseMantMenu}
             >
               <MenuList>
-                {user && autorize({ allowedRoles: ['Administrador']}) && 
-                  <MenuItem component='a' href='/movie-table/'>
-                    <Typography textAlign='center'>Mantenimiento Centro médico</Typography>
-                  </MenuItem>}
-
+                  <MenuItem component='a' href='/big-calendar/'>
+                    <Typography textAlign='center'>Mantenimiento Citas</Typography>
+                  </MenuItem>
+                  <MenuItem component='a' href='/diseases-table/'>
+                    <Typography textAlign='center'>Mantenimiento Enfermedades</Typography>
+                  </MenuItem>
+                  <MenuItem component='a' href='/medication-table/'>
+                    <Typography textAlign='center'>Mantenimiento Medicamentos</Typography>
+                  </MenuItem>
               </MenuList>
             </Menu>
           </Box>
