@@ -16,11 +16,9 @@ import PersonIcon from '@mui/icons-material/Person'
 import TableViewIcon from '@mui/icons-material/TableView'
 import { React, useState, useEffect, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
-import { red } from '@mui/material/colors';
 
 
 export function Header () {
-  const color = red[200];
   const {user, decodeToken, autorize } =useContext(UserContext)
   const [userData, setUserData]=useState(decodeToken())
   const [anchorElNav, setAnchorElNav] = useState(null)
@@ -49,16 +47,17 @@ export function Header () {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+
   return (
     <AppBar position='static'>
       <Container maxWidth='xl' >
         <Toolbar disableGutters>
-          <Local sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, }} />
+          <Local sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, }} />
           <Typography
             variant='h6'
             noWrap
             component='a'
-            href='/big-calendar'
+            href='/'
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -66,13 +65,14 @@ export function Header () {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none',  
+              textDecoration: 'none', 
+              marginRight: "auto"
             }}
           >
             Centro médico
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -106,15 +106,15 @@ export function Header () {
                   <Typography textAlign='center'>Mantenimiento Centro médico</Typography>
                 </MenuItem>
             </Menu>
-          </Box>
-          <Typography
+          </Box> */}
+          {/* <Typography
             variant='h5'
             noWrap
             component='a'
-            href=''
+            href='/'
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: 'none', md: 'flex' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -124,12 +124,13 @@ export function Header () {
             }}
           >
             Centro médico
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button component='a' href='/allergies-table/' sx={{ my: 2, color: 'white', display: 'block' }}>Lista Alergias</Button>
-          </Box>
+          </Typography> */}
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Button component='a' href='/allergies-table/' sx={{ my: 2, color: 'white', display: 'block' }}>test</Button>
+          </Box> */}
           {/* Menu Mantenimientos */}
-          <Box sx={{ flexGrow: 0 }}>
+          {
+            userData && userData.role_type == "Staf" && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Mantenimiento'>
               <IconButton onClick={handleOpenMantMenu} sx={{ p: 1 }}>
                 <TableViewIcon style={{ fill: 'white' }} />
@@ -164,6 +165,8 @@ export function Header () {
               </MenuList>
             </Menu>
           </Box>
+          }
+          
           {/* Menu Mantenimientos */}
           {/* Menu Usuario */}
           <Box sx={{ flexGrow: 0 }}>
@@ -209,6 +212,9 @@ export function Header () {
                       </Typography>
                     </MenuItem>
                   }
+                  <MenuItem color='secondary' component='a' href='/user'>
+                    <Typography textAlign='center'>Mi cuenta</Typography>
+                  </MenuItem>
                   <MenuItem color='secondary' component='a' href='/user/logout'>
                     <Typography textAlign='center'>Logout</Typography>
                   </MenuItem>

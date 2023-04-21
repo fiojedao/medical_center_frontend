@@ -20,6 +20,7 @@ import { FormDoctor } from './components/FormDoctors'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
 import { Signup } from './components/Signup'
+import { User } from './components/User'
 import UserProvider from './components/UserProvider'
 import { Auth } from './components/Auth'
 import FormAppointment from './components/FormAppointment';
@@ -70,9 +71,25 @@ const router=createBrowserRouter([
         element: <FormMedication />
       },
       {
+        path:'/doctor/create',
+        element: <FormDoctor />
+      },
+      {
         path:'/big-calendar',
         element: <FormAppointment />
-      }
+      },
+      {
+        path: '/doctors-table',
+        element: <TableDoctors/>
+      },
+      {
+        path: '/doctor-update/:id',
+        element: <FormDoctor />
+      },
+      {
+        path:'/user',
+        element: <User />
+      },
     ]
   },
   {
@@ -90,19 +107,7 @@ const router=createBrowserRouter([
   {
     path:'/user/create',
     element: <Signup />
-  },
-  {
-    path:'/doctor/create',
-    element: <FormDoctor />
-  },
-  {
-    path: '/doctors-table',
-    element: <TableDoctors/>
-  },
-  {
-    path: '/doctor-update/:id',
-    element: <FormDoctor />
-  },
+  }
 ])
 
 export function App(){

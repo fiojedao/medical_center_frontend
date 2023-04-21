@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { requestOptionsBody, URIBase } from './headers'
-const BASE_URL = import.meta.env.VITE_BASE_URL
 
 export function useSubmitForm ({endpoint, action, formData, start}) {
   const [responseData, setData] = useState(null)

@@ -12,55 +12,41 @@ import * as yup from 'yup'
 import { useSubmitForm } from '../hooks/useSubmitForm'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateField } from '@mui/x-date-pickers/DateField';
-import dayjs from 'dayjs';
 
 export function Signup () {
   const navigate = useNavigate()
   // Esquema de validación
   const loginSchema = yup.object({
-     id: yup.string()
+      user_id: yup.string()
       .required('El numero de identificacion es requerido'),
       name: yup.string()
       .required('El nombre es requerido'),
+      username: yup.string()
+      .required('El nombre de usuario es requerido'),
+      password: yup.string()
+      .required('La contrasena es requerida'),
       lastname_one: yup.string()
       .required('El primer apellido es requerido'),
-      lasnamet_two: yup.string()
-      .required('El segundo apellido es requerido'),
-      genre: yup.string()
-      .required('El genero es requerido'),
-      date_of_birth: yup.string()
-      .required('La fecha de nacimiento es requerida'),
-      contact: yup.string()
-      .required('El numero de contacto es requerido'),
-      emergency_contact: yup.string()
-      .required('El numero contacto en caso de emergencia es requerido'),
-      blood_type: yup.string()
-      .required('El tipo de sangre requerido'),
-
+      lastname_two: yup.string()
+      .required('El segundo apellido es requerido')
   })
   const { control, handleSubmit, setValue, formState: { errors } } =
   useForm({
     // Valores iniciales
     defaultValues: {
-      id: '',
+      user_id: '',
       name: '',
+      username: '',
+      password: '',
       lastname_one: '',
-      lasnamet_two: '',
-      genre: 'o',
+      lastname_two: '',
+
+      genre: '',
       address: '',
       date_of_birth: '',
       contact: '',
       emergency_contact: '',
-      blood_type: '',
-   
+      blood_type: ''
     },
     // Asignación de validaciones
     resolver: yupResolver(loginSchema)
@@ -127,7 +113,7 @@ export function Signup () {
               </FormControl>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
                 name='name'
@@ -144,7 +130,7 @@ export function Signup () {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
                 name='lastname_one'
@@ -161,7 +147,7 @@ export function Signup () {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
                 name='lastname_two'
@@ -178,24 +164,24 @@ export function Signup () {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
-                name='number_id'
+                name='user_id'
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    id='number_id'
+                    id='user_id'
                     label='Numero de identificacion'
-                    error={Boolean(errors.number_id)}
-                    helperText={errors.number_id ? errors.number_id.message : ' '}
+                    error={Boolean(errors.user_id)}
+                    helperText={errors.user_id ? errors.user_id.message : ' '}
                   />
                 )}
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
                 name='email'
@@ -212,7 +198,7 @@ export function Signup () {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4}>
             <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
               <Controller
                 name='password'
@@ -229,66 +215,6 @@ export function Signup () {
                 )}
               />
             </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
-              <Controller
-                name='number_id'
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id='number_id'
-                    label='Numero de identificacion'
-                    error={Boolean(errors.number_id)}
-                    helperText={errors.number_id ? errors.number_id.message : ' '}
-                  />
-                )}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
-              <Controller
-                name='date_of_birth'
-                control={control}
-                render={({ field }) => (
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DateField']}>
-                      <DateField 
-                        {...field} 
-                        defaultValue={dayjs('1900-01-01')}
-                        label="Basic date field"
-                        onChange={(e) => setValue('date_of_birth', e.target.value, { shouldValidate: true })}
-                         />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                )}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-          <FormControl variant='standard' fullWidth sx={{ m: 1 }}>
-              <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
-              <Controller
-                  name='genre'
-                  control={control}
-                  render={({ field }) => (
-                  <RadioGroup
-                    {...field}
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    defaultValue="o"
-                    onChange={(e) => setValue('genre', e.target.value, { shouldValidate: true })}
-                  >
-                    <FormControlLabel value="f" control={<Radio />} label="Female" />
-                    <FormControlLabel value="m" control={<Radio />} label="Male" />
-                    <FormControlLabel value="o" control={<Radio />} label="Other" />
-                  </RadioGroup>
-                  )}
-                />
-          </FormControl>
           </Grid>
           <Grid item xs={12} sm={12}>
             <Button type='submit' variant='contained' color='secondary' sx={{ m: 1 }}>Login</Button>
