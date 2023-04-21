@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserContext } from '../context/UserContext'
+import { UserContext } from "../context/UserContext";
 import * as yup from "yup";
 import {
   Container,
@@ -26,13 +26,13 @@ import {
 export function User({ user_id }) {
   // eslint-disable-next-line no-unused-vars
   const [values, setValues] = useState(null);
-  const {user, decodeToken, autorize } = useContext(UserContext)
-  const [userData, setUserData]=useState(decodeToken())
+  const { user, decodeToken, autorize } = useContext(UserContext);
+  const [userData, setUserData] = useState(decodeToken());
 
-  useEffect(()=>{
-    setUserData(decodeToken())
-  },[user])
-  console.log(userData)
+  useEffect(() => {
+    setUserData(decodeToken());
+  }, [user]);
+  console.log(userData);
   const diseasesSchema = yup.object({
     name: yup.string().required("El nombre es requerido"),
     medical_specialities_code: yup
@@ -70,45 +70,208 @@ export function User({ user_id }) {
     <>
       {" "}
       <Card>
-        <CardHeader
-            title="Cuenta"
-            subheader="Administrar Usuario"
-        />
+        <CardHeader title="Cuenta" subheader="Administrar Usuario" />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
             <Grid item xs={2} sm={2}>
-              <MenuItem color="secondary" component="a" href="/user">
+              <MenuItem
+                color="secondary"
+                component="a"
+                href="/user"
+                sx={{ backgroundColor: "rgba(17, 25, 39, 0.04)" }}
+              >
                 <Typography textAlign="center">Mi cuenta</Typography>
               </MenuItem>
             </Grid>
             <Grid item xs={10} sm={10}>
               <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
                 <Card>
-                  <CardHeader
-                    title={userData.email}
-                  />
+                  <CardHeader title={userData.email} />
                   <Divider />
                   <CardContent>
                     <Grid container spacing={6} wrap="wrap">
-                      <Grid xs={12} sm={6} md={4}>
+                      <Grid item xs={12} sm={6} md={6}>
                         <Stack spacing={1}>
-                          <Typography variant="h6">Informacion persona</Typography>
+                          <Typography variant="h6">
+                            Informacion persona
+                          </Typography>
                           <Stack>
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="username"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="username"
+                                    label="Nombre de Usuario"
+                                    error={Boolean(errors.username)}
+                                    helperText={
+                                      errors.username
+                                        ? errors.username.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="name"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="name"
+                                    label="Nombre"
+                                    error={Boolean(errors.name)}
+                                    helperText={
+                                      errors.name ? errors.name.message : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>{" "}
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="lastname_one"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="lastname_one"
+                                    label="Apellido 1"
+                                    error={Boolean(errors.lastname_one)}
+                                    helperText={
+                                      errors.lastname_one
+                                        ? errors.lastname_one.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>{" "}
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="lastname_two"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="lastname_two"
+                                    label="Apellido 2"
+                                    error={Boolean(errors.lastname_two)}
+                                    helperText={
+                                      errors.lastname_two
+                                        ? errors.lastname_two.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>{" "}
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="user_id"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="user_id"
+                                    label="Numero de identificacion"
+                                    error={Boolean(errors.user_id)}
+                                    helperText={
+                                      errors.user_id
+                                        ? errors.user_id.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>{" "}
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="email"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="email"
+                                    label="Email"
+                                    error={Boolean(errors.email)}
+                                    helperText={
+                                      errors.email ? errors.email.message : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>{" "}
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="password"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="password"
+                                    label="Password"
+                                    type="password"
+                                    error={Boolean(errors.password)}
+                                    helperText={
+                                      errors.password
+                                        ? errors.password.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>
                           </Stack>
                         </Stack>
                       </Grid>
-                      <Grid item md={4} sm={6} xs={12}>
+                      <Grid item md={6} sm={6} xs={12}>
                         <Stack spacing={1}>
-                          <Typography variant="h6">Informacion medica</Typography>
-                          <Stack>
-                          </Stack>
+                          <Typography variant="h6">
+                            Informacion medica
+                          </Typography>
+                          <Stack></Stack>
                         </Stack>
                       </Grid>
                     </Grid>
                   </CardContent>
                   <Divider />
-                  <CardActions sx={{ justifyContent: "flex-end", margin: "20px" }}>
+                  <CardActions
+                    sx={{ justifyContent: "flex-end", margin: "20px" }}
+                  >
                     <Button variant="contained">Save</Button>
                   </CardActions>
                 </Card>

@@ -10,7 +10,7 @@ export function Footer() {
         bottom: 0,
         width: '100%',
         height: '4.5rem',
-        backgroundColor: 'primary.main',
+        backgroundColor: 'rgb(28, 37, 54)',
         paddingTop: '1rem',
         paddingBottom: '1rem'
       }}

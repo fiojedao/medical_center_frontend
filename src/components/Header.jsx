@@ -49,7 +49,9 @@ export function Header () {
   }
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' sx={{
+      backgroundColor: 'rgb(28, 37, 54)'
+    }}>
       <Container maxWidth='xl' >
         <Toolbar disableGutters>
           <Local sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, }} />

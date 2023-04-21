@@ -1,24 +1,29 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
-import { useEffect, useState, useContext } from "react";
-import { useForm, Controller } from "react-hook-form";
-import TextField from "@mui/material/TextField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useSubmitForm } from "../hooks/useSubmitForm";
-// eslint-disable-next-line no-unused-vars
-import { useNavigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import { UserContext } from "../context/UserContext";
 import {
   Box,
   Button,
-  Typography,
-  Grid,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
   FormControl,
-  Stack,
   Link,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
+  Unstable_Grid2 as Grid,
 } from "@mui/material";
+// eslint-disable-next-line no-unused-vars
+import { Toaster } from "react-hot-toast";
+import { useEffect, useState, useContext } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { useSubmitForm } from "../hooks/useSubmitForm";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 export function Login() {
   const navigate = useNavigate();
@@ -93,88 +98,97 @@ export function Login() {
           alignItems: "center",
           display: "flex",
           justifyContent: "center",
+          marginTop:"20px"
         }}
       >
-        <Box
-          sx={{
-            maxWidth: 550,
-            px: 3,
-            py: "100px",
-            width: "100%",
-          }}
-        >
-          <div>
-            <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Login</Typography>
-              <Typography color="text.secondary" variant="h6">
-                No tienes cuenta? &nbsp;
-                <Link
-                  href="/user/create"
-                  color="inherit"
-                  underline="hover"
-                  variant="body2"
-                >
-                  Registrar Usuario
-                </Link>
-              </Typography>
-            </Stack>
-            <Toaster />
-            <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={4}>
-                  {/* ['filled','outlined','standard']. */}
-                  <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
-                    <Controller
-                      name="useremail"
-                      control={control}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          id="useremail"
-                          label="Email"
-                          error={Boolean(errors.useremail)}
-                          helperText={
-                            errors.useremail ? errors.useremail.message : " "
-                          }
+        <Card>
+          <CardHeader title="Login" />
+          <Divider />
+          <CardContent>
+            <Box
+              sx={{
+                maxWidth: 550,
+                width: "100%",
+              }}
+            >
+              <div>
+                <Toaster />
+                <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+                        <Controller
+                          name="useremail"
+                          control={control}
+                          render={({ field }) => (
+                            <TextField
+                              {...field}
+                              id="useremail"
+                              label="Email"
+                              error={Boolean(errors.useremail)}
+                              helperText={
+                                errors.useremail
+                                  ? errors.useremail.message
+                                  : " "
+                              }
+                            />
+                          )}
                         />
-                      )}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
-                    <Controller
-                      name="password"
-                      control={control}
-                      render={({ field }) => (
-                        <TextField
-                          {...field}
-                          id="password"
-                          label="Password"
-                          type="password"
-                          error={Boolean(errors.password)}
-                          helperText={
-                            errors.password ? errors.password.message : " "
-                          }
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+                        <Controller
+                          name="password"
+                          control={control}
+                          render={({ field }) => (
+                            <TextField
+                              {...field}
+                              id="password"
+                              label="Password"
+                              type="password"
+                              error={Boolean(errors.password)}
+                              helperText={
+                                errors.password ? errors.password.message : " "
+                              }
+                            />
+                          )}
                         />
-                      )}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                    sx={{ m: 1 }}
-                  >
-                    Login
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        </Box>
+                      </FormControl>
+                    </Grid>
+                    
+                    <Grid item xs={12} sm={12}>
+                    <Stack spacing={2} sx={{ mb: 3 }}>
+                      <Typography color="text.secondary">
+                        No tienes cuenta? &nbsp;
+                        <Link
+                          href="/user/create"
+                          color="inherit"
+                          underline="hover"
+                          variant="body2"
+                        >
+                          Registrar Usuario
+                        </Link>
+                      </Typography>
+                    </Stack>
+
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        sx={{ m: 1 }}
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </div>
+            </Box>{" "}
+          </CardContent>
+        </Card>
       </Box>
     </>
   );
