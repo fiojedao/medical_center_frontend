@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Container, Grid, Typography } from '@mui/material'
-import AbcSharpIcon from '@mui/icons-material/AbcSharp';
 
 export function Footer() {
   return (
@@ -18,12 +17,12 @@ export function Footer() {
       <Container maxWidth='lg'>
         <Grid container direction='column' alignItems='center'>
           <Grid item xs={12}>
-            <Typography color='black' variant='subtitle1'>
+            <Typography color='common.white' variant='subtitle1'>
               Centro médico
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography color='textSecondary' variant='body1'>
+            <Typography color='common.white' variant='body1'>
               {`${new Date().getFullYear()}`}
             </Typography>
           </Grid>
