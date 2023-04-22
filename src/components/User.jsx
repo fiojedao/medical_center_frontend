@@ -3,21 +3,29 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useState, useEffect, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../context/UserContext";
+import { blood_type } from "../context/catalog";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField } from '@mui/x-date-pickers/DateField';
+
 import * as yup from "yup";
 import {
-  Container,
+    Radio,
+    RadioGroup,
+    FormControlLabel,
+    FormLabel,
   MenuItem,
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Checkbox,
+  Select,
   TextField,
   Divider,
   FormControl,
-  FormControlLabel,
+  InputLabel,
   Stack,
   Typography,
   Unstable_Grid2 as Grid,
@@ -32,14 +40,14 @@ export function User({ user_id }) {
   useEffect(() => {
     setUserData(decodeToken());
   }, [user]);
-  console.log(userData);
-  const diseasesSchema = yup.object({
+  const loginSchema = yup.object({
+    user_id: yup.string().required("El numero de identificacion es requerido"),
     name: yup.string().required("El nombre es requerido"),
-    medical_specialities_code: yup
-      .string()
-      .required("Debe escoger la especailidad"),
+    username: yup.string().required("El nombre de usuario es requerido"),
+    password: yup.string().required("La contrasena es requerida"),
+    lastname_one: yup.string().required("El primer apellido es requerido"),
+    lastname_two: yup.string().required("El segundo apellido es requerido"),
   });
-
   const {
     control,
     handleSubmit,
@@ -48,13 +56,22 @@ export function User({ user_id }) {
   } = useForm({
     // Valores iniciales
     defaultValues: {
+      user_id: "",
       name: "",
-      medical_specialities_code: "",
+      username: "",
+      password: "",
+      lastname_one: "",
+      lastname_two: "",
+
+      genre: "o",
+      address: "",
+      date_of_birth: "",
+      contact: "",
+      emergency_contact: "",
+      blood_type: "",
     },
-    // valores a precargar
-    values,
     // Asignación de validaciones
-    resolver: yupResolver(diseasesSchema),
+    resolver: yupResolver(loginSchema),
   });
 
   const onError = (errors, e) => console.log(errors, e);
@@ -243,7 +260,31 @@ export function User({ user_id }) {
                                   <TextField
                                     {...field}
                                     id="password"
-                                    label="Password"
+                                    label="Contraseña"
+                                    type="password"
+                                    error={Boolean(errors.password)}
+                                    helperText={
+                                      errors.password
+                                        ? errors.password.message
+                                        : " "
+                                    }
+                                  />
+                                )}
+                              />
+                            </FormControl>
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="password"
+                                control={control}
+                                render={({ field }) => (
+                                  <TextField
+                                    {...field}
+                                    id="password"
+                                    label="Verificar contraseña"
                                     type="password"
                                     error={Boolean(errors.password)}
                                     helperText={
@@ -263,7 +304,90 @@ export function User({ user_id }) {
                           <Typography variant="h6">
                             Informacion medica
                           </Typography>
-                          <Stack></Stack>
+                          <Stack>
+                            <FormControl
+                              variant="standard"
+                              fullWidth
+                              sx={{ m: 1 }}
+                            >
+                              <Controller
+                                name="blood_type"
+                                control={control}
+                                render={({ field }) => (
+                                  <>
+                                    <InputLabel id="blood_type_label">
+                                      Tipo de Sangre
+                                    </InputLabel>
+                                    <Select
+                                      {...field}
+                                      labelId="blood_type_label"
+                                      id="blood_type"
+                                      label="Tipo de Sangre"
+                                      onChange={(e, newValue) => {
+                                        setValue(
+                                          "blood_type",
+                                          newValue.props.value,
+                                          {
+                                            shouldValidate: true,
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      {blood_type.map((row) => (
+                                        <MenuItem
+                                          key={row.blood_type}
+                                          value={row.blood_type}
+                                        >
+                                          {row.blood_name}
+                                        </MenuItem>
+                                      ))}
+                                    </Select>
+                                  </>
+                                )}
+                              />
+                            </FormControl>
+
+                            <FormControl
+                              variant="standard"
+                              sx={{ m: 1 }}
+                            >
+                                <Controller
+                                name="genre"
+                                control={control}
+                                render={({ field }) => (
+                                  <>
+                                    <FormLabel id="radio-buttons-group-label">Gender</FormLabel>
+                                    <RadioGroup
+                                        {...field}
+                                        row
+                                        aria-labelledby="radio-buttons-group-label"
+                                        id="genre"
+                                        defaultValue="o"
+                                        name="radio-buttons-group"
+                                        onChange={(e, newValue) => {
+                                          setValue(
+                                            "genre",
+                                            newValue,
+                                            {
+                                              shouldValidate: true,
+                                            }
+                                          );
+                                        }}
+                                    >
+                                        <FormControlLabel value="f" control={<Radio />} label="Femenina" />
+                                        <FormControlLabel value="m" control={<Radio />} label="Masculino" />
+                                        <FormControlLabel value="o" control={<Radio />} label="Otro" />
+                                    </RadioGroup>
+                                  </>
+                                )}
+                              />
+                            </FormControl>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DateField']}>
+        <DateField label="Basic date field" />
+      </DemoContainer>
+    </LocalizationProvider>
+                          </Stack>
                         </Stack>
                       </Grid>
                     </Grid>

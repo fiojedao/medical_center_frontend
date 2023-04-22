@@ -11,7 +11,8 @@ export function Footer() {
         height: '4.5rem',
         backgroundColor: 'rgb(28, 37, 54)',
         paddingTop: '1rem',
-        paddingBottom: '1rem'
+        paddingBottom: '1rem',
+        zIndex:"99"
       }}
     >
       <Container maxWidth='lg'>
