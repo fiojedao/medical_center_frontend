@@ -4,17 +4,17 @@ import { useState, useEffect, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserContext } from "../context/UserContext";
 import { blood_type } from "../context/catalog";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateField } from '@mui/x-date-pickers/DateField';
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
 
 import * as yup from "yup";
 import {
-    Radio,
-    RadioGroup,
-    FormControlLabel,
-    FormLabel,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
   MenuItem,
   Button,
   Card,
@@ -347,46 +347,56 @@ export function User({ user_id }) {
                               />
                             </FormControl>
 
-                            <FormControl
-                              variant="standard"
-                              sx={{ m: 1 }}
-                            >
-                                <Controller
+                            <FormControl variant="standard" sx={{ m: 1 }}>
+                              <Controller
                                 name="genre"
                                 control={control}
                                 render={({ field }) => (
                                   <>
-                                    <FormLabel id="radio-buttons-group-label">Gender</FormLabel>
+                                    <FormLabel id="radio-buttons-group-label">
+                                      Gender
+                                    </FormLabel>
                                     <RadioGroup
-                                        {...field}
-                                        row
-                                        aria-labelledby="radio-buttons-group-label"
-                                        id="genre"
-                                        defaultValue="o"
-                                        name="radio-buttons-group"
-                                        onChange={(e, newValue) => {
-                                          setValue(
-                                            "genre",
-                                            newValue,
-                                            {
-                                              shouldValidate: true,
-                                            }
-                                          );
-                                        }}
+                                      {...field}
+                                      row
+                                      aria-labelledby="radio-buttons-group-label"
+                                      id="genre"
+                                      defaultValue="o"
+                                      name="radio-buttons-group"
+                                      onChange={(e, newValue) => {
+                                        setValue("genre", newValue, {
+                                          shouldValidate: true,
+                                        });
+                                      }}
                                     >
-                                        <FormControlLabel value="f" control={<Radio />} label="Femenina" />
-                                        <FormControlLabel value="m" control={<Radio />} label="Masculino" />
-                                        <FormControlLabel value="o" control={<Radio />} label="Otro" />
+                                      <FormControlLabel
+                                        value="f"
+                                        control={<Radio />}
+                                        label="Femenina"
+                                      />
+                                      <FormControlLabel
+                                        value="m"
+                                        control={<Radio />}
+                                        label="Masculino"
+                                      />
+                                      <FormControlLabel
+                                        value="o"
+                                        control={<Radio />}
+                                        label="Otro"
+                                      />
                                     </RadioGroup>
                                   </>
                                 )}
                               />
                             </FormControl>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DateField']}>
-        <DateField label="Basic date field" />
-      </DemoContainer>
-    </LocalizationProvider>
+
+                            <FormControl variant="standard" sx={{ m: 1 }}>
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={["DateField"]}>
+                                  <DateField label="Basic date field" />
+                                </DemoContainer>
+                              </LocalizationProvider>
+                            </FormControl>
                           </Stack>
                         </Stack>
                       </Grid>
