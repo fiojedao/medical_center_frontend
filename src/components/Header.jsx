@@ -132,7 +132,7 @@ export function Header () {
           </Box> */}
           {/* Menu Mantenimientos */}
           {
-            userData && userData.role_type == "Staf" && <Box sx={{ flexGrow: 0 }}>
+            userData && userData.rol == "Administrador" && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Mantenimiento'>
               <IconButton onClick={handleOpenMantMenu} sx={{ p: 1 }}>
                 <TableViewIcon style={{ fill: 'white' }} />
