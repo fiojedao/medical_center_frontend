@@ -164,6 +164,12 @@ export function Header () {
                   <MenuItem component='a' href='/medication-table/'>
                     <Typography textAlign='center'>Mantenimiento Medicamentos</Typography>
                   </MenuItem>
+                  <MenuItem component='a' href='/allergies-table/'>
+                    <Typography textAlign='center'>Mantenimiento allergias</Typography>
+                  </MenuItem>
+                  <MenuItem component='a' href='/doctors-table/'>
+                    <Typography textAlign='center'>Mantenimiento doctor</Typography>
+                  </MenuItem>
               </MenuList>
             </Menu>
           </Box>

@@ -94,7 +94,13 @@ export function FormAllergies() {
     }
   };
   // Si ocurre error al realizar el submit
-  const onError = (errors, e) => console.log(errors, e);
+  const onError = (errors, e) => {
+    if (esCrear ) {
+      toast.error("Error, debe de completar los espacios requeridos para crear la alergia");
+    }else{
+      toast.error("Error, no se ha podido actualizar la alergia, debe completar los espacios requeridos");
+    }  
+  };
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
   // - si hay datos de la allegia que se debe precargar
@@ -102,6 +108,17 @@ export function FormAllergies() {
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
     if (responseData != null) {
+      setStart(true);
+      if (!esCrear && data) {
+        const nombre = data[0].name;
+        toast.success("Alergia " + nombre + " actualizada correctamente");
+      } else {
+        toast.success(
+          "Alergia " +
+          responseData[0].name +
+          " creada correctmente correctamente"
+        );
+      }
       // Si hay respuesta se creo o modifico lo redirecciona
       return navigate("/allergies-table");
     }
@@ -112,26 +129,42 @@ export function FormAllergies() {
     }
   }, [responseData, data, esCrear, action]);
 
-  React.useEffect(() => {
-   
-    if (responseData != null) {
-      setStart(true);
-    }
-  }, [responseData]);
 
   return (
     <>
       {categorias.data && (
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-          <Grid container spacing={1}>
+           <Grid container spacing={1} style={{
+            textAlign: "center", border: '2px solid gray', 
+            justifyContent: 'center',  marginTop:"50px"
+          }}>
             <Grid item xs={12} sm={12}>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" gutterBottom style={{ textAlign: "center", backgroundColor: 'gray', color: 'white', marginRight:'10px' ,marginBottom:'20px' }}>
                 {esCrear ? "Crear" : "Modificar"} Allergia
               </Typography>
             </Grid>
+           
+            <Grid item xs={12} sm={4}>
+              <FormControl variant="standard" fullWidth sx={{ marginRight:'10px' , marginTop:'10px'}}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      id="name"
+                      label="Nombre"
+                      error={Boolean(errors.name)}
+                      helperText={errors.name ? errors.name.message : " "}
+                    />
+                  )}
+                />
+              </FormControl>
+            </Grid>
+
             <Grid item xs={12} sm={4}>
               {/* ['filled','outlined','standard']. */}
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{ marginLeft:'10px', marginTop:'10px'  }}>
                 <Controller
                   name="id_category"
                   control={control}
@@ -158,23 +191,6 @@ export function FormAllergies() {
                         ))}
                       </Select>
                     </>
-                  )}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      id="name"
-                      label="Nombre"
-                      error={Boolean(errors.name)}
-                      helperText={errors.name ? errors.name.message : " "}
-                    />
                   )}
                 />
               </FormControl>

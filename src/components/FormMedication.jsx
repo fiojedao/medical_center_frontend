@@ -26,9 +26,9 @@ export function FormMedication() {
   // Esquema de validación
   const medicationSchema = yup.object({
     name: yup.string().required("El nombre es requerido"),
-    description: yup.string().required("Debe escoger la categoría"),
-    dose: yup.string().required("El nombre es requerido"),
-    type: yup.string().required("Debe escoger la categoría"),
+    description: yup.string().required("La descripcion es requerida"),
+    dose: yup.string().required("La dosis es requerida"),
+    type: yup.string().required("El tipo del medicamento es requerido"),
   });
   const {
     control,
@@ -62,7 +62,7 @@ export function FormMedication() {
 
   // Obtener la informacion de la medicamento a actualizar
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint: `medication/${id}` });
+  const { data, error, loaded } = useCallApi({ endpoint: `medication`,  param$: id,});
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
   const { responseData, errorData, loadedData } = useSubmitForm({
@@ -90,7 +90,13 @@ export function FormMedication() {
     }
   };
   // Si ocurre error al realizar el submit
-  const onError = (errors, e) => console.log(errors, e);
+  const onError = (errors, e) => {
+    if (esCrear ) {
+      toast.error("Error, debe de completar los espacios requeridos para crear el medicamento");
+    }else{
+      toast.error("Error, no se ha podido actualizar el medicamento, debe completar los espacios requeridos");
+    }  
+  };
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
   // - si hay datos de la medicamento que se debe precargar
@@ -98,7 +104,17 @@ export function FormMedication() {
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
     if (responseData != null) {
-      
+      setStart(true);
+      if (!esCrear && data) {
+        const nombre = data[0].name;
+        toast.success("Medicamento " + nombre + " actualizado correctamente");
+      } else {
+        toast.success(
+          "Medicamento " +
+          responseData[0].name +
+          " creado correctmente correctamente"
+        );
+      }
       // Si hay respuesta se creo o modifico lo redirecciona
       return navigate("/medication-table");
     }
@@ -110,26 +126,24 @@ export function FormMedication() {
   
   }, [responseData, data, esCrear, action]);
 
-  React.useEffect(() => {
-   
-    if (responseData != null) {
-        setStart(true);
-    }
-  }, [responseData]);
+ 
 
   return (
     <>
      
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-          <Grid container spacing={1}>
+        <Grid container spacing={1} style={{
+            textAlign: "center", border: '2px solid gray', 
+            justifyContent: 'center',  marginTop:"50px"
+          }}>
             <Grid item xs={12} sm={12}>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" gutterBottom style={{ textAlign: "center", backgroundColor: 'gray', color: 'white', marginRight:'10px' ,marginBottom:'20px' }}>
                 {esCrear ? "Crear" : "Modificar"} Medicamento
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
               {/* ['filled','outlined','standard']. */}
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{ m: 2 }}>
                 <Controller
                   name="name"
                   control={control}
@@ -144,7 +158,7 @@ export function FormMedication() {
                   )}
                 />
               </FormControl>
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{ m: 2 }}>
                 <Controller
                   name="description"
                   control={control}
@@ -161,7 +175,7 @@ export function FormMedication() {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{ m: 2 }}>
                 <Controller
                   name="dose"
                   control={control}
@@ -176,7 +190,7 @@ export function FormMedication() {
                   )}
                 />
               </FormControl>
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{ m: 2 }}>
                 <Controller
                   name="type"
                   control={control}
