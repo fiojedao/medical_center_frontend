@@ -1,7 +1,5 @@
 import './App.css'
 import { Layout } from './components/Layout'
-import { ListMovies } from './components/ListMovies'
-import { DetailMovie } from './components/DetailMovie'
 import { Home } from './components/Home'
 // Import from react-router-dom
 import {
