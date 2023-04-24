@@ -22,7 +22,7 @@ const styledGrid = {
 
 const FormAppointment = (props) => {
   const [start, setStart] = useState(false);
-  const [formData, setData] = useState(null)
+  const [formData, setData] = useState(null);
   const [selectSlot, setSelectSlot] = useState(null);
   const [doctorId, setDoctorId] = useState("");
   const [userId, setUserId] = useState("");
@@ -57,7 +57,7 @@ const FormAppointment = (props) => {
   };
 
   const { responseData, errorData, loadedData } = submitAppointments({
-    endpoint: "/appointments",
+    endpoint: "appointments",
     action: "POST",
     body: formData,
     start

@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { FormHelperText, Select, InputLabel, MenuItem } from "@mui/material";
+import { FormHelperText, Select, InputLabel, MenuItem,  Box } from "@mui/material";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -24,7 +24,7 @@ import toast from "react-hot-toast";
 export function FormDoctor() {
   const navigate = useNavigate();
   const routeParams = useParams();
-  // Id de la enfermedad a actualizar
+  // Id de la doctor a actualizar
   const id = routeParams.id || null;
   const esCrear = !id;
   // Valores a precarga al actualizar
@@ -32,7 +32,9 @@ export function FormDoctor() {
   // Esquema de validación
   const diseasesSchema = yup.object({
     name: yup.string().required("El nombre es requerido"),
-    medical_specialities_code: yup.string().required("Debe escoger la especailidad"),
+    medical_specialities_code: yup
+      .string()
+      .required("Debe escoger la especailidad"),
   });
   const {
     control,
@@ -64,9 +66,12 @@ export function FormDoctor() {
     endpoint: "medicalspecialities",
   });
 
-  // Obtener la informacion de la enfermedad a actualizar
+  // Obtener la informacion de la doctor a actualizar
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint: `doctors/${id}`,  });
+  const { data, error, loaded } = useCallApi({
+    endpoint: "doctors",
+    param$: id,
+  });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
   const { responseData, errorData, loadedData } = useSubmitForm({
@@ -79,7 +84,7 @@ export function FormDoctor() {
   const onSubmit = (DataForm) => {
     try {
       // Establecer valores del formulario
-     
+
       setData(DataForm);
       // Indicar que se puede realizar la solicitud al API
       setStart(true);
@@ -94,15 +99,32 @@ export function FormDoctor() {
     }
   };
   // Si ocurre error al realizar el submit
-  const onError = (errors, e) => console.log(errors, e);
+  const onError = (errors, e) => {
+    if (esCrear ) {
+      toast.error("Error, debe de completar los espacios requeridos para crear el doctor");
+    }else{
+      toast.error("Error, no se ha podido actualizar el doctor, debe completar los espacios requeridos");
+    }  
+  };
   // Ejecutar si hay algun cambio en:
   // - la respuesta del API al crea o actualizar
-  // - si hay datos de la enfermedad que se debe precargar
+  // - si hay datos de la doctor que se debe precargar
   // - cambia el booleano que indica si es Crear o Modificar
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
     if (responseData != null) {
-     
+      setStart(true);
+      if (!esCrear && data) {
+        const nombre = data[0].name;
+        toast.success("Doctor(a) " + nombre + " actualizado(a) correctamente");
+      } else {
+        toast.success(
+          "Doctor(a) " +
+          responseData[0].name +
+          " creado(a) correctmente correctamente"
+        );
+      }
+
       // Si hay respuesta se creo o modifico lo redirecciona
       return navigate("/doctors-table");
     }
@@ -110,31 +132,27 @@ export function FormDoctor() {
       // Si es modificar establece los valores a precargar en el formulario
       setValues(data[0]);
       console.log(data[0]);
-    }else{
-      
+    } else {
     }
   }, [responseData, data, esCrear, action]);
-
-  React.useEffect(() => {
-    
-    if (responseData != null) {
-      setStart(true);
-    }
-  }, [responseData]);
 
   return (
     <>
       {especialidad.data && (
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-          <Grid container spacing={1}>
+  
+          <Grid container spacing={1} style={{
+            textAlign: "center", border: '2px solid gray', 
+            justifyContent: 'center',  marginTop:"50px"
+          }}>
             <Grid item xs={12} sm={12}>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" gutterBottom style={{ textAlign: "center", backgroundColor: 'gray', color: 'white', marginRight:'10px' ,marginBottom:'20px' }}>
                 {esCrear ? "Crear" : "Modificar"} Medico
               </Typography>
             </Grid>
-           
-            <Grid item xs={12} sm={4}>
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+
+            <Grid item xs={12} sm={5} style={{}} >
+              <FormControl variant="standard" fullWidth sx={{ marginRight:'10px' , marginTop:'10px' }}>
                 <Controller
                   name="name"
                   control={control}
@@ -150,29 +168,35 @@ export function FormDoctor() {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={5} style={{left: '50%', 
+        top: '50%',}}>
               {/* ['filled','outlined','standard']. */}
-              <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
+              <FormControl variant="standard" fullWidth sx={{marginLeft:'10px', marginTop:'10px'  }}>
                 <Controller
                   name="medical_specialities_code"
                   control={control}
                   render={({ field }) => (
                     <>
-                      <InputLabel id="medical_specialities_code-label">Especialidad</InputLabel>
+                      <InputLabel id="medical_specialities_code-label">
+                        Especialidad
+                      </InputLabel>
                       <Select
                         {...field}
                         labelId="medical_specialities_code-label"
                         id="medical_specialities_code"
                         label="especialidad"
                         onChange={(e, newValue) => {
-                            console.log(newValue)
-                            setValue("medical_specialities_code", newValue.props.value, {
+                          console.log(newValue);
+                          setValue(
+                            "medical_specialities_code",
+                            newValue.props.value,
+                            {
                               shouldValidate: true,
-                            });
-                          }}
+                            }
+                          );
+                        }}
                       >
                         {especialidad.data.map((row, index) => (
-                         
                           <MenuItem key={index} value={row.code_id}>
                             {row.name}
                           </MenuItem>
@@ -195,6 +219,7 @@ export function FormDoctor() {
               </Button>
             </Grid>
           </Grid>
+      
         </form>
       )}
     </>

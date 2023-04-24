@@ -132,7 +132,7 @@ export function Header () {
           </Box> */}
           {/* Menu Mantenimientos */}
           {
-            userData && userData.role_type == "Staf" && <Box sx={{ flexGrow: 0 }}>
+            userData && userData.rol == "Administrador" && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Mantenimiento'>
               <IconButton onClick={handleOpenMantMenu} sx={{ p: 1 }}>
                 <TableViewIcon style={{ fill: 'white' }} />
@@ -163,6 +163,12 @@ export function Header () {
                   </MenuItem>
                   <MenuItem component='a' href='/medication-table/'>
                     <Typography textAlign='center'>Mantenimiento Medicamentos</Typography>
+                  </MenuItem>
+                  <MenuItem component='a' href='/allergies-table/'>
+                    <Typography textAlign='center'>Mantenimiento allergias</Typography>
+                  </MenuItem>
+                  <MenuItem component='a' href='/doctors-table/'>
+                    <Typography textAlign='center'>Mantenimiento doctor</Typography>
                   </MenuItem>
               </MenuList>
             </Menu>
