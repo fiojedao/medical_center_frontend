@@ -36,8 +36,10 @@ export function Home () {
   }, [responseData]);
 
   if(user && !token){
+    console.log(user, token);
     setToken(user);
     setStart(true);
+    return;
   }
 
   return (

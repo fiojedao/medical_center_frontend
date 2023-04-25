@@ -1,46 +1,48 @@
-import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import { useCallApi } from '../hooks/useCallApi';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import { useCallApi } from "../hooks/useCallApi";
+import {
+  Box,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  Unstable_Grid2 as Grid,
+} from "@mui/material";
 
-export function SelectUser ({onData}) {
-  const { data, error, loaded } = useCallApi({ endpoint: 'user' });
-  const [user, setUser] = React.useState("0");
-
-  function handleChange(event) {
-    setUser(event.target.value);
-    onData(event.target.value)
-  }
+export function SelectUser({ onData, id, err, errMessage }, { ...field }) {
+  const { data, error, loaded } = useCallApi({ endpoint: "user" });
 
   return (
     <>
       {loaded && (
         <>
-        <Box sx={{ minWidth: 120 }}>
-          <InputLabel id="user-select-label">Pacientes</InputLabel>
-          <Select
-            labelId="user-select-label"
-            id="user-select"
-            label="Pacientes"
-            defaultValue={[]}
-            value={user}
-            onChange={handleChange}
-          >
-            
-            <MenuItem value="0">
-              <em>Pacientes</em>
-            </MenuItem>
-            {data.map((obj) => (
+          <Box>
+            <InputLabel id="user-select-label">Pacientes</InputLabel>
+            <Select
+              fullWidth
+              {...field}
+              labelId="user-select-label"
+              id={id}
+              label="Pacientes"
+              defaultValue={[]}
+              onChange={onData}
+              error={Boolean(err)}
+            >
+              <MenuItem value="">
+                <em>Pacientes</em>
+              </MenuItem>
+              {data.map((obj) => (
                 <MenuItem key={obj.id} value={obj.user_id}>
                   {`${obj.name} ${obj.lastname_one} ${obj.lastname_two}`}
                 </MenuItem>
-            ))}
-          </Select>
+              ))}
+            </Select>
+            <FormHelperText sx={{ color: "#d32f2f" }}>
+              {errMessage}
+            </FormHelperText>
           </Box>
         </>
       )}
     </>
-  )
+  );
 }

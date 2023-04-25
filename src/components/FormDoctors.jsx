@@ -69,8 +69,7 @@ export function FormDoctor() {
   // Obtener la informacion de la doctor a actualizar
   // eslint-disable-next-line no-unused-vars
   const { data, error, loaded } = useCallApi({
-    endpoint: "doctors",
-    param$: id,
+    endpoint: `doctors/${id}`
   });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars

@@ -136,7 +136,7 @@ export function User() {
       //setStart(true);
     } catch (e) {
       // handle your error
-      debugger
+      
     }
   };
 

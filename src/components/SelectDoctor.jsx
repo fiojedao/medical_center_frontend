@@ -1,46 +1,50 @@
-import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import { useCallApi } from '../hooks/useCallApi';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import { useCallApi } from "../hooks/useCallApi";
+import {
+  Box,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  Unstable_Grid2 as Grid,
+} from "@mui/material";
 
-export function SelectDoctor ({onData, category}) {
-  const { data, error, loaded } = useCallApi({ endpoint: 'doctors', param: category });
-  const [doctor, setDoctor] = React.useState("0");
-
-  function handleChange(event) {
-    setDoctor(event.target.value);
-    onData(event.target.value)
-  }
+export function SelectDoctor({ onData, category, id, err, errMessage }, { ...field }) {
+  const { data, error, loaded } = useCallApi({
+    endpoint: "doctors"
+  });
 
   return (
     <>
       {loaded && (
         <>
-        <Box sx={{ minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-label">Médico</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Médicos"
-            defaultValue={[]}
-            value={doctor}
-            onChange={handleChange}
-          >
-            
-            <MenuItem value="0">
-              <em>Médicos</em>
-            </MenuItem>
-            {data.map((doctors) => (
+        <Box>
+            <InputLabel id="simple-select-label">Médico</InputLabel>
+            <Select
+              fullWidth
+              {...field}
+              labelId="simple-select-label"
+              id={id}
+              label="Médicos"
+              defaultValue={[]}
+              onChange={onData}
+              error={Boolean(err)}
+            >
+              <MenuItem value="">
+                <em>Médicos</em>
+              </MenuItem>
+              {data.map((doctors) => (
                 <MenuItem key={doctors.doctor_id} value={doctors.doctor_id}>
                   {doctors.name}
                 </MenuItem>
-            ))}
-          </Select>
+              ))}
+            </Select>
+            <FormHelperText sx={{ color: "#d32f2f" }}>
+              {errMessage}
+            </FormHelperText>
           </Box>
         </>
       )}
     </>
-  )
+  );
 }

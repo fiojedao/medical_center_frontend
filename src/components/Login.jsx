@@ -24,6 +24,7 @@ import { UserContext } from "../context/UserContext";
 import { useSubmitForm } from "../hooks/useSubmitForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from 'react-hot-toast'
 
 export function Login() {
   const navigate = useNavigate();
@@ -83,10 +84,16 @@ export function Login() {
   // - cambia el booleano que indica si es Crear o Modificar
   // - cambia el tipo de accion POST o PUT
   useEffect(() => {
-    if (responseData != null) {
+    if (responseData != null && responseData.login) {
       // Guardar token
-      saveUser(responseData);
+      saveUser(responseData.token);
       return navigate("/");
+    } else if(responseData && !responseData.login) {
+      toast.error(responseData.message, {
+        duration: 4000,
+        position: 'top-center'
+      });
+      setStart(false);
     }
   }, [responseData]);
   return (

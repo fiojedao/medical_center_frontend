@@ -19,6 +19,7 @@
     "@mui/styled-engine-sc": "^5.11.11",
     "@mui/x-date-pickers": "latest",
     "cors": "^2.8.5",
+    "date-arithmetic": "^4.1.0",
     "date-fns": "latest",
     "dayjs": "^1.11.7",
     "jwt-decode": "^3.1.2",
@@ -38,6 +39,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "date-arithmetic": "^4.1.0",
     "nodemon": "^2.0.20",
     "react-router-dom": "^6.8.2",
     "vite": "^4.1.0"
