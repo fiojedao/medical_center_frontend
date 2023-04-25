@@ -209,6 +209,7 @@ const FormAppointment = (props) => {
                           <Stack>
                             <FormControl variant="standard" sx={{ m: 1 }}>
                               <AppointmentCalendar
+                              enabled={true}
                                 doctor_id={doctorId}
                                 onData={(event) => {
                                   setValue("description", event.title, {

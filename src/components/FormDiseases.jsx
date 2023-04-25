@@ -18,7 +18,6 @@ import { useCallApi } from "../hooks/useCallApi";
 // eslint-disable-next-line no-unused-vars
 import { useNavigate, useParams } from "react-router-dom";
 import { SelectGenres } from "./selectGenres";
-import { ActorsForm } from "./ActorsForm";
 import toast from "react-hot-toast";
 
 export function FormDiseases() {

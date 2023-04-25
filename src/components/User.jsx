@@ -80,7 +80,7 @@ export function User() {
       email: "",
       genre: "o",
       address: "",
-      date_of_birth: dayjs("1950-04-17"),
+      date_of_birth: dayjs("1950-10-01"),
       contact: "",
       emergency_contact: "",
       blood_type: "",
@@ -119,6 +119,7 @@ export function User() {
 
   const onSubmit = (DataForm) => {
     try {    
+      let date_of_birth = moment(DataForm.date_of_birth).format('YYYY-MM-DD')
       setData({
         user_id:DataForm.user_id,
         name:DataForm.name,
@@ -126,7 +127,7 @@ export function User() {
         lastname_two:DataForm.lastname_two,
         genre:DataForm.genre,
         address:DataForm.address,
-        date_of_birth:moment(DataForm.date_of_birth).format('L'),
+        date_of_birth:date_of_birth,
         contact:DataForm.contact,
         emergency_contact:DataForm.emergency_contact,
         blood_type:DataForm.blood_type,
@@ -301,7 +302,7 @@ export function User() {
                                     <DemoContainer components={["DateField"]}>
                                       <DateField
                                         {...field}
-                                        format="MM-DD-YYYY"
+                                        format="YYYY-MM-DD"
                                         onChange={(newValue) => {
                                           setValue("date_of_birth", newValue, {
                                             shouldValidate: true,

@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import TableAllergies from './components/TableAllergies'
 import TableDiseases from './components/TableDiseases'
+import TableUsers from './components/TableUsers'
 import TableMedication from './components/TableMedication'
 import TableDoctors from './components/TableDoctors'
 import TableAllergiesUser from './components/TableAllergiesUser'
@@ -91,6 +92,10 @@ const router=createBrowserRouter([
       {
         path:'/user',
         element: <User />
+      },
+      {
+        path:'/user-table',
+        element: <TableUsers />
       },
     ]
   },
