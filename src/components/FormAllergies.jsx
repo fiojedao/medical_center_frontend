@@ -61,7 +61,7 @@ export function FormAllergies() {
 
   // Obtener la informacion de la allegia a actualizar
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint: `allergies/${id}` });
+  const { data, error, loaded } = useCallApi({ endpoint: `allergies`,  param$: id });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
   const { responseData, errorData, loadedData } = useSubmitForm({
