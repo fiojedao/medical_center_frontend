@@ -11,6 +11,8 @@ import TableDiseases from './components/TableDiseases'
 import TableUsers from './components/TableUsers'
 import TableMedication from './components/TableMedication'
 import TableDoctors from './components/TableDoctors'
+import TableAllergiesUser from './components/TableAllergiesUser'
+import TableDiseaseUser from './components/TableDiseaseUser'
 import {FormAllergies} from './components/FormAllergies'
 import {FormDiseases} from './components/FormDiseases'
 import {FormMedication} from './components/FormMedication'
@@ -23,6 +25,8 @@ import { User } from './components/User'
 import UserProvider from './components/UserProvider'
 import { Auth } from './components/Auth'
 import FormAppointment from './components/FormAppointment';
+import { DetailAllergiesUser } from './components/DetailAllergiesUser'
+import { DetaillDiseasesUser } from './components/DetaillDiseasesUser'
 
 const router=createBrowserRouter([
   {
@@ -110,6 +114,30 @@ const router=createBrowserRouter([
   {
     path:'/user/create',
     element: <Signup />
+  },
+  {
+    path: 'allergie-user',
+    element: <DetailAllergiesUser />
+  },
+ /* {
+    path:'/allergiesUser-table/:id',
+    element: <TableAllergiesUser/>
+  },*/
+  {
+    path:'/allergiesUser-table',
+    element: <TableAllergiesUser/>
+  },
+  {
+    path: 'diseases-user',
+    element: <DetaillDiseasesUser />
+  },
+  /*{
+    path:'/diseasesUser-table/:id',
+    element: <TableDiseaseUser/>
+  }*/
+   {
+    path:'/diseasesUser-table',
+    element: <TableDiseaseUser/>
   }
 ])
 

@@ -62,7 +62,7 @@ export function FormMedication() {
 
   // Obtener la informacion de la medicamento a actualizar
   // eslint-disable-next-line no-unused-vars
-  const { data, error, loaded } = useCallApi({ endpoint: `medication/${id}`});
+  const { data, error, loaded } = useCallApi({ endpoint: `medication`,  param$:id });
   // Obtener la respuesta de la solicitud de crear o actualizar en el API
   // eslint-disable-next-line no-unused-vars
   const { responseData, errorData, loadedData } = useSubmitForm({
